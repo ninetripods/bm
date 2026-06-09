@@ -1,0 +1,41 @@
+{
+  "summary": "Frontend-only regression for Bloommama iteration 2 (services/pricing/promise/booking-prefill/bilingual). Ran 70 automated UI checks via Playwright on the deployed URL — all 70 passed.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_coverage_executed": [
+    "Services (#services): 5 cards present (milk-in, boosting, blocked-duct, weaning, residual) — verified NO $ price, NO book-* button, NO residual note inside service cards",
+    "Services intro CN sub text matches '每次调理时长约 50–90 分钟，上门服务。推荐 3 次为基础调理次数，会根据个人体质相应增加。' and does NOT contain '或减少'",
+    "Pricing (#pricing): book-single-{id} + book-package-{id} present for milk-in/boosting/blocked-duct/weaning; residual has only book-single-residual (no book-package-residual); grand-package + book-grand present",
+    "Grand package rendered inside the same .grid as price cards (no full-width banner); shows '4 × 3 sessions' and $1800; no '5×3' anywhere",
+    "Weaning card: residual-note-weaning visible with EN 'Includes residual milk clearing'",
+    "pricing-note testid present with AUD + late-night/urgent fee copy",
+    "Click book-single-milk-in → booking-service=milk-in, booking-package=single (event-driven prefill works)",
+    "Click book-package-weaning → booking-service=weaning, booking-package=package",
+    "Click book-grand → booking-package=grand",
+    "Booking form grand option CN text = '全程套餐 · 开奶·催奶·通乳·回奶（含排残奶）' (no 5×3)",
+    "Promise section (promise-1on1) visible with EN title '1-on-1 personal tracking, from first visit to long after' and exactly 3 bullets",
+    "CN pricing labels render '单次调理' and '3 次套餐' (no occurrence of '单次理疗')",
+    "Residual service CN description contains the long-form text about mothers who haven't done residual clearing",
+    "why-card-0 CN matches '可能恶化为疼痛性堵塞、奶流受阻，若拖延则进一步加剧局部胀痛与极度紧绷不适。'",
+    "benefit-1 CN title = '激发气血循环 · 科学促进泌乳'; benefit-3 CN title = '调理身心压力 · 预防后期硬块' (NO '预防后期结节')",
+    "GRAND_PACKAGE.cn.items contains '回奶 × 3（含排残奶）'",
+    "Mobile viewport (390px): pricing grid stacks to single column (gridTemplateColumns=342px)"
+  ],
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Minor: GrandCard uses hard-coded English label '4 × 3 sessions' inside the price block — not translated when lang=cn. Consider adding t.sections.grandSessions for full bilingual consistency (non-blocking, requirement explicitly says display '4 × 3 sessions').",
+    "Minor: book-grand always sets service: 'milk-in' as the active service when prefilling grand. Acceptable since grand spans 4 services, but could be left blank/undefined or labeled 'all' for clarity."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (not requested)", "frontend": "100% (70/70)"},
+  "test_credentials": "Admin (per request, not used in this iteration): bloommama66@gmail.com / Bloom@2026",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All iteration-2 frontend changes are verified live on the deployed URL. Booking prefill is wired via window CustomEvent 'bm-book' and BookingForm useEffect listener — works correctly across both languages. Backend was NOT re-tested this iteration (was confirmed working in iteration_1.json)."
+}

@@ -1,0 +1,112 @@
+{
+  "project_name": "Bloommama Postpartum Care",
+  "theme": "Light",
+  "archetype": "1 (Organic & Earthy)",
+  "aesthetic_vibe": "Tender, intimate, trust-driven, warm, calm, nurturing, premium. Modern traditional Chinese wellness meeting professional postpartum care. Avoid clinical/cold looks.",
+  "colors": {
+    "background": "#FDFBF7",
+    "surface": "#F6F3EB",
+    "primary": "#839A86",
+    "primary_hover": "#6C816F",
+    "secondary": "#D08B76",
+    "text_primary": "#2D362E",
+    "text_secondary": "#5C675D",
+    "border": "#E8E3D9",
+    "accent": "#E4D5C7",
+    "admin_dashboard_bg": "#F9FAFB"
+  },
+  "typography": {
+    "heading_font_en": "Cormorant Garamond",
+    "heading_font_cn": "Noto Serif SC",
+    "body_font_en": "Manrope",
+    "body_font_cn": "Noto Sans SC",
+    "anti_default_rule": "Strictly NO Inter or Roboto for headings.",
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none text-text-primary",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl tracking-tight text-text-primary",
+      "h3": "text-xl sm:text-2xl text-text-primary",
+      "body": "text-base leading-relaxed text-text-secondary",
+      "label": "text-sm tracking-wide uppercase text-text-secondary"
+    }
+  },
+  "layout_and_spacing": {
+    "philosophy": "Generous Spacing (p-12, p-16, py-24). Avoid cramming elements. Give breathing room.",
+    "border_radius": "Soft curves. rounded-2xl or rounded-3xl for cards. rounded-full for decorative image frames.",
+    "shadows": "Diffuse ambient shadows. Use shadow-[0_8px_32px_rgba(131,154,134,0.08)] rather than harsh gray shadows.",
+    "grid_strategy": "Mode A (Tetris Grid) for marketing sections to create gentle asymmetry. Mode B (Control Room) for Admin Dashboard."
+  },
+  "surfaces_and_components": {
+    "header": "Crystal Glassmorphism (backdrop-blur-xl bg-white/70) with a 1px delicate inner stroke (border-white/40). Visible on desktop.",
+    "marketing_components": "Use pure HTML/Tailwind. Avoid default Shadcn cards for the main marketing site; use fluid rounded shapes and Cardless designs.",
+    "interactive_components": "Shadcn for Booking Form, Select, Datepicker, and Admin Dashboard. Heavily customized to fit the organic color palette.",
+    "icons": "lucide-react with thin stroke widths to maintain elegance."
+  },
+  "bilingual_strategy": {
+    "default": "English",
+    "implementation": "Context-based toggle via React state. Ensure dual-font pairing (English serif + Chinese serif) looks seamless. Navigation should feature a clean EN | 中文 button.",
+    "disclaimer": "The medical disclaimer MUST be prominently displayed in both languages (NOT medical advice, not IBCLC, not for acute mastitis)."
+  },
+  "pages_and_sections": [
+    {
+      "name": "Hero Section",
+      "details": "Bilingual headline. Primary CTA (Book Home Visit). Hero image overlay max bg-white/30. Tender visual of mother/baby."
+    },
+    {
+      "name": "Services Showcase (Bento Grid)",
+      "details": "5 core services (Gentle Milk-In, Natural Supply, Blocked Duct, Weaning, Post-Lactation Clearing). Prices + Duration. Hover states lift cards slightly."
+    },
+    {
+      "name": "Philosophy & 'Why It Matters'",
+      "details": "Educational split-screen. Emphasize traditional meridian point pressure. 4 core benefits (Precise, Painless, No Devices, Circulation)."
+    },
+    {
+      "name": "Pricing & Packages",
+      "details": "Clean tier display. Single sessions, 3-session packages, 5-package combo (1800 AUD). Emphasize 'In-Home Visit' (Perth)."
+    },
+    {
+      "name": "Online Booking Form",
+      "details": "Name, Phone/WeChat, Email, Service Select (Shadcn), Date/Time (Shadcn Calendar), Postpartum notes, Address."
+    },
+    {
+      "name": "Footer & Contact",
+      "details": "Phone (0451960316), WeChat QR code slot, Email (bloommama66@gmail.com), Perth Service Area map/list. Strong disclaimer text."
+    },
+    {
+      "name": "Admin Dashboard",
+      "details": "Secure route. Data-heavy layout (Swiss Archetype). Shadcn Table to view, filter, update (Pending/Confirmed/Completed), delete bookings."
+    }
+  ],
+  "testing_and_accessibility": {
+    "data_testid": "ALL interactive elements, form fields, buttons, and navigation MUST include a data-testid attribute (e.g., data-testid='book-now-btn').",
+    "contrast": "Ensure text contrast meets WCAG AA standards, particularly over images and in form placeholders."
+  },
+  "media": {
+    "instructions": "Use these precise image URLs. Do NOT use placeholder domains like via.placeholder.com. Ensure images have alt text.",
+    "image_urls": [
+      {
+        "category": "hero",
+        "description": "Sleeping baby on white textile, evoking peace.",
+        "url": "https://images.unsplash.com/photo-1552819289-e14fbbcea868?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHw0fHxtb3RoZXIlMjBuZXdib3JuJTIwZ2VudGxlfGVufDB8fHx8MTc4MDc1ODE3Mnww&ixlib=rb-4.1.0&q=85"
+      },
+      {
+        "category": "service_care",
+        "description": "Adult hand holding tiny baby hand.",
+        "url": "https://images.unsplash.com/photo-1582486225644-aeacf6aa0b1b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHwxfHxtb3RoZXIlMjBuZXdib3JuJTIwZ2VudGxlfGVufDB8fHx8MTc4MDc1ODE3Mnww&ixlib=rb-4.1.0&q=85"
+      },
+      {
+        "category": "wellness_nature",
+        "description": "Balanced stones by the sea, representing traditional wellness.",
+        "url": "https://images.unsplash.com/photo-1765490526583-4bf7f007096f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHw0fHxjYWxtJTIwd2VsbG5lc3MlMjBuYXR1cmFsfGVufDB8fHx8MTc4MDc1ODE3Mnww&ixlib=rb-4.1.0&q=85"
+      },
+      {
+        "category": "mother_baby",
+        "description": "Mother carrying baby gently.",
+        "url": "https://images.unsplash.com/photo-1542385151-efd9000785a0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHwzfHxtb3RoZXIlMjBuZXdib3JuJTIwZ2VudGxlfGVufDB8fHx8MTc4MDc1ODE3Mnww&ixlib=rb-4.1.0&q=85"
+      }
+    ]
+  },
+  "motion_and_interactions": {
+    "hover_states": "Buttons use hover:bg-primary_hover hover:text-white. Active elements darken appropriately.",
+    "scroll_animations": "Use Framer Motion for staggered entrance animations on the services bento grid."
+  }
+}

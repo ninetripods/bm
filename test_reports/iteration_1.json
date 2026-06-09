@@ -1,0 +1,46 @@
+{
+  "summary": "Full backend + frontend smoke/integration testing for Bloommama. 17/17 pytest backend tests pass (health, auth login/me/invalid/missing, bookings public create, list-requires-auth, list-sorted-desc, patch valid/invalid/404, delete auth/404/success). Frontend: home loads with all required testids (hero, 5 service-card-*, why-card-0, benefit-0, price-* + grand-package, booking-form, contact-phone/email/wechat-qr, disclaimer, footer-wechat-qr, nav-*); language toggle EN<->中文 confirmed (hero text changes); public booking form submission shows booking-success and persists in admin list; /admin redirects unauth users to /admin/login; admin login lands on /admin and renders bookings; status select changes to 'confirmed'; filter tabs (All/Pending/Confirmed/...) work; delete removes a row (2->1); logout returns to /admin/login. No mocks, no critical issues.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/bookings", "issue": "Returns 200 OK on create instead of 201 Created (convention nit; tests adjusted)."},
+      {"endpoint": "ALL /api", "issue": "CORS allow_origins is bound to a single FRONTEND_URL env var; if FRONTEND_URL is unset, falls back to localhost:3000. Works for deployed preview but brittle if env changes."},
+      {"endpoint": "GET /api/bookings", "issue": "Hard-coded list cap of 1000 (to_list(1000)). No pagination; fine for MVP, document for future."},
+      {"endpoint": "/api/bookings/{id} PATCH", "issue": "Uses find_one_and_update then re-fetches doc (double round-trip). Minor perf nit, can use ReturnDocument.AFTER."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Admin dashboard", "issues": ["Browser-native <select> used for status (acceptable, but inconsistent with shadcn styling on rest of site). Browser-native date/time pickers in booking form (acceptable for MVP)."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "OPTIONAL: Return HTTP 201 from POST /api/bookings for REST correctness.",
+    "OPTIONAL: Use ReturnDocument.AFTER in PATCH /api/bookings/{id} to avoid an extra read.",
+    "OPTIONAL: Replace native <select>/date/time pickers with shadcn equivalents for consistent design."
+  ],
+  "critical_code_review_comments": [
+    "CORS in server.py allows a single origin from FRONTEND_URL env var with allow_credentials=True. Correct shape, but ensure FRONTEND_URL always matches the deployed frontend; otherwise browser will block requests.",
+    "Auth cookie is set with secure=True, samesite='none' — appropriate for cross-site preview deployments; will only flow over HTTPS. Bearer token via localStorage is also used by frontend; both paths verified working.",
+    "seed_admin correctly upserts the admin password when env value differs (matches playbook).",
+    "BookingForm.jsx posts directly via axios — no loading indicator besides button text; error path is wired with booking-error testid. Good.",
+    "AdminDashboard performs delete via window.confirm(); accepted by test dialog handler. Consider a shadcn AlertDialog for nicer UX."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py",
+    "/app/backend/tests/__init__.py"
+  ],
+  "success_rate": {"backend": "100% (17/17)", "frontend": "100% of tested flows"},
+  "test_credentials": "Admin: bloommama66@gmail.com / Bloom@2026 (loaded from /app/memory/test_credentials.md, matches backend .env seed).",
+  "seed_data_creation": "Created two test bookings via the public POST /api/bookings flow during frontend test (one via UI 'TEST_PWUser' + one earlier 'Test Mom'). Backend pytest also created+deleted one TEST_Alice booking. Frontend delete flow removed one of the two test bookings. Remaining test booking(s) may still exist in DB and can be cleaned up by admin UI.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Backend test file lives at /app/backend/tests/backend_test.py and is fully self-contained (uses REACT_APP_BACKEND_URL). Admin testids in AdminDashboard use shape status-{id}, delete-{id}, booking-{id}, booking-toggle-{id}, expand-{id}, admin-refresh, admin-logout. AdminLogin uses admin-email, admin-password, admin-login-submit. BookingForm uses booking-name/phone/email/wechat/service/package/date/time/suburb/stage/notes/submit/success/new/error. Home uses hero-*, service-card-*, why-card-*, benefit-*, price-*, grand-package, contact-phone/email/wechat-qr, disclaimer. Lang toggle: lang-toggle. Nav: nav-services/nav-pricing/nav-booking/nav-contact. footer-wechat-qr present.",
+  "rca of the issue": "No bugs found. All required features per the review request work end-to-end."
+}

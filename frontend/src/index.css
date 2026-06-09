@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: "Manrope", "Noto Sans SC", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #fdfbf7;
+  color: #2d362e;
+}
+
+::selection {
+  background: #d08b76;
+  color: #fdfbf7;
+}
+
+@layer base {
+  :root {
+    --background: 40 41% 98%;
+    --foreground: 130 6% 19%;
+    --card: 40 41% 98%;
+    --card-foreground: 130 6% 19%;
+    --popover: 40 41% 98%;
+    --popover-foreground: 130 6% 19%;
+    --primary: 125 10% 56%;
+    --primary-foreground: 40 41% 98%;
+    --secondary: 41 30% 94%;
+    --secondary-foreground: 130 6% 19%;
+    --muted: 41 30% 94%;
+    --muted-foreground: 130 6% 38%;
+    --accent: 18 47% 83%;
+    --accent-foreground: 130 6% 19%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 40 41% 98%;
+    --border: 38 22% 87%;
+    --input: 38 22% 87%;
+    --ring: 125 10% 56%;
+    --radius: 0.875rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1, h2, h3, h4 {
+    font-family: "Cormorant Garamond", "Noto Serif SC", serif;
+    letter-spacing: -0.01em;
+  }
+  :lang(zh) h1, :lang(zh) h2, :lang(zh) h3 {
+    font-family: "Noto Serif SC", "Cormorant Garamond", serif;
+  }
+}
+
+.bg-grain {
+  background-image:
+    radial-gradient(rgba(45,54,46,0.04) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.dot-divider::before {
+  content: "•";
+  margin: 0 0.5rem;
+  color: #d08b76;
+}
+
+.scroll-mt-24 { scroll-margin-top: 6rem; }
