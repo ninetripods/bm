@@ -48,13 +48,17 @@ export default function BookingForm() {
     setSubmitting(true);
     setError("");
     try {
-      await axios.post(`${API}/bookings`, {
+      await axios.post("https://formspree.io/f/xaqzjpwz", {
         ...form,
         email: form.email || undefined,
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
       setSuccess(true);
     } catch (err) {
-      const d = err.response?.data?.detail;
+      const d = err.response?.data?.detail || err.message;
       setError(typeof d === "string" ? d : "Something went wrong. Please call us directly.");
     } finally {
       setSubmitting(false);
@@ -85,7 +89,7 @@ export default function BookingForm() {
   }
 
   return (
-    <form action="https://formspree.io/f/xaqzjpwz" method="POST" data-testid="booking-form" className="bg-cream-100/80 border border-cream-300 rounded-3xl p-6 sm:p-10 space-y-5">
+    <form onSubmit={submit} data-testid="booking-form" className="bg-cream-100/80 border border-cream-300 rounded-3xl p-6 sm:p-10 space-y-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <Field label={t.booking.name} required>
           <input
